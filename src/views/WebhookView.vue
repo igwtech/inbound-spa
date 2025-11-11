@@ -16,27 +16,29 @@ onMounted(async () => {
 
 <template>
     <DashboardLayout>
-        <div>
-            <h1>Webhooks</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>URI</th>
-                        <th>User</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="webhook in webhooks" :key="webhook.id">
-                        <td>{{ webhook.id }}</td>
-                        <td>{{ webhook.uri }}</td>
-                        <td>{{ webhook.user.email }}</td>
-                        <td>{{ webhook.createdAt }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p v-if="webhooks.length === 0">No webhooks found</p>
+        <div class="p-8">
+            <h1 class="text-3xl font-bold mb-6">Webhooks</h1>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-gray-800 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">URI</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">User</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr v-for="webhook in webhooks" :key="webhook.id">
+                            <td class="px-6 py-4 whitespace-nowrap">{{ webhook.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ webhook.uri }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ webhook.user.email }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ webhook.createdAt }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p v-if="webhooks.length === 0" class="mt-6 text-center">No webhooks found</p>
         </div>
     </DashboardLayout>
 </template>

@@ -45,47 +45,36 @@ onMounted(fetchTokens)
 
 <template>
     <DashboardLayout>
-        <div class="api-token-view">
-            <h1>API Token Management</h1>
-            <button @click="createToken">Create New Token</button>
-            <div v-if="isLoading">Loading...</div>
-            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-            <ul v-if="!isLoading && tokens.length">
-                <li v-for="token in tokens" :key="token.id">
-                    <span>{{ token.name }}</span>
-                    <button @click="deleteToken(token.id)">Delete</button>
-                </li>
-            </ul>
-            <p v-if="!isLoading && !tokens.length">No API tokens found.</p>
+        <div class="p-8">
+            <h1 class="text-3xl font-bold mb-6">API Token Management</h1>
+            <button @click="createToken"
+                class="mb-6 px-4 py-2 font-bold text-white bg-green-500 rounded-lg hover:bg-green-600">
+                Create New Token
+            </button>
+            <div v-if="isLoading" class="text-center">Loading...</div>
+            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+            <div v-if="!isLoading && tokens.length" class="overflow-x-auto">
+                <table class="min-w-full bg-gray-800 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr v-for="token in tokens" :key="token.id">
+                            <td class="px-6 py-4 whitespace-nowrap">{{ token.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right">
+                                <button @click="deleteToken(token.id)"
+                                    class="px-4 py-2 font-bold text-white bg-red-600 rounded-lg hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p v-if="!isLoading && !tokens.length" class="text-center">No API tokens found.</p>
         </div>
     </DashboardLayout>
 </template>
-
-<style scoped>
-.api-token-view {
-    padding: 2rem;
-}
-
-button {
-    margin-bottom: 1rem;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-}
-
-.error-message {
-    color: red;
-}
-</style>

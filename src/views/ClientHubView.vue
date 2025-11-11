@@ -24,52 +24,56 @@ onMounted(async () => {
 
 <template>
     <DashboardLayout>
-        <div>
-            <h1>Clients</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Client ID</th>
-                        <th>Name</th>
-                        <th>Active</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="client in clients" :key="client.id">
-                        <td>{{ client.id }}</td>
-                        <td>{{ client.clientId }}</td>
-                        <td>{{ client.name }}</td>
-                        <td>{{ client.active }}</td>
-                        <td>{{ client.createdAt }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p v-if="clients.length === 0">No clients found</p>
+        <div class="p-8">
+            <h1 class="text-3xl font-bold mb-6">Clients</h1>
+            <div class="overflow-x-auto mb-12">
+                <table class="min-w-full bg-gray-800 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Client ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Active</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr v-for="client in clients" :key="client.id">
+                            <td class="px-6 py-4 whitespace-nowrap">{{ client.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ client.clientId }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ client.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ client.active }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ client.createdAt }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p v-if="clients.length === 0" class="mt-6 text-center">No clients found</p>
 
-            <h1>Hubs</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Hub ID</th>
-                        <th>Name</th>
-                        <th>Active</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="hub in hubs" :key="hub.id">
-                        <td>{{ hub.id }}</td>
-                        <td>{{ hub.hubId }}</td>
-                        <td>{{ hub.name }}</td>
-                        <td>{{ hub.active }}</td>
-                        <td>{{ hub.createdAt }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p v-if="hubs.length === 0">No hubs found</p>
+            <h1 class="text-3xl font-bold mb-6">Hubs</h1>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-gray-800 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Hub ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Active</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr v-for="hub in hubs" :key="hub.id">
+                            <td class="px-6 py-4 whitespace-nowrap">{{ hub.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ hub.hubId }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ hub.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ hub.active }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ hub.createdAt }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p v-if="hubs.length === 0" class="mt-6 text-center">No hubs found</p>
         </div>
     </DashboardLayout>
 </template>
