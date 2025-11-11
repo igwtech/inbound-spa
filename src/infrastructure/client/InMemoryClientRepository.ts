@@ -20,4 +20,8 @@ export class InMemoryClientRepository implements ClientRepository {
     const client = this.clients.find((client) => client.id === id)
     return client || null
   }
+
+  clear(): void {
+    this.clients = []
+  }
 }

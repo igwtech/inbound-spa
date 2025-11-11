@@ -1,7 +1,13 @@
+<script setup lang="ts">
+import DashboardLayout from '@/components/DashboardLayout.vue'
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <DashboardLayout>
+    <div class="about">
+      <h1>This is an about page</h1>
+    </div>
+  </DashboardLayout>
 </template>
 
 <style>

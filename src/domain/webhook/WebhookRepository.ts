@@ -6,4 +6,5 @@ export interface WebhookRepository {
   create(webhook: Webhook): Promise<Webhook>
   update(webhook: Webhook): Promise<Webhook>
   delete(id: number): Promise<void>
+  clear(): void
 }

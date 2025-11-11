@@ -46,4 +46,8 @@ export class InMemoryWebhookRepository implements WebhookRepository {
   async delete(id: number): Promise<void> {
     this.webhooks = this.webhooks.filter((webhook) => webhook.id !== id)
   }
+
+  clear(): void {
+    this.webhooks = []
+  }
 }

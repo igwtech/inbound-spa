@@ -6,4 +6,5 @@ export interface PostRepository {
   create(post: Post): Promise<Post>
   update(post: Post): Promise<Post>
   delete(id: number): Promise<void>
+  clear(): void
 }

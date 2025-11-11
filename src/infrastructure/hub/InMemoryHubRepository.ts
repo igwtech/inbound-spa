@@ -20,4 +20,8 @@ export class InMemoryHubRepository implements HubRepository {
     const hub = this.hubs.find((hub) => hub.id === id)
     return hub || null
   }
+
+  clear(): void {
+    this.hubs = []
+  }
 }

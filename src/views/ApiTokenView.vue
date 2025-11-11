@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { apiTokenService } from '@/services'
 import type { ApiToken } from '@/domain/api-token/ApiToken'
+import DashboardLayout from '@/components/DashboardLayout.vue'
 
 const tokens = ref<ApiToken[]>([])
 const isLoading = ref(true)
@@ -43,19 +44,21 @@ onMounted(fetchTokens)
 </script>
 
 <template>
-    <div class="api-token-view">
-        <h1>API Token Management</h1>
-        <button @click="createToken">Create New Token</button>
-        <div v-if="isLoading">Loading...</div>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-        <ul v-if="!isLoading && tokens.length">
-            <li v-for="token in tokens" :key="token.id">
-                <span>{{ token.name }}</span>
-                <button @click="deleteToken(token.id)">Delete</button>
-            </li>
-        </ul>
-        <p v-if="!isLoading && !tokens.length">No API tokens found.</p>
-    </div>
+    <DashboardLayout>
+        <div class="api-token-view">
+            <h1>API Token Management</h1>
+            <button @click="createToken">Create New Token</button>
+            <div v-if="isLoading">Loading...</div>
+            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <ul v-if="!isLoading && tokens.length">
+                <li v-for="token in tokens" :key="token.id">
+                    <span>{{ token.name }}</span>
+                    <button @click="deleteToken(token.id)">Delete</button>
+                </li>
+            </ul>
+            <p v-if="!isLoading && !tokens.length">No API tokens found.</p>
+        </div>
+    </DashboardLayout>
 </template>
 
 <style scoped>

@@ -52,4 +52,8 @@ export class InMemoryPostRepository implements PostRepository {
   async delete(id: number): Promise<void> {
     this.posts = this.posts.filter((post) => post.id !== id)
   }
+
+  clear(): void {
+    this.posts = []
+  }
 }

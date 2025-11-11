@@ -12,3 +12,7 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+if (window.Cypress) {
+  window.app = app
+}
