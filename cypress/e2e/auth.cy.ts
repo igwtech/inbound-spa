@@ -1,29 +1,30 @@
 describe('Authentication', () => {
   it('should log in and redirect to the home page', () => {
+    cy.intercept('POST', '/api/login').as('loginRequest')
     cy.visit('/login')
-    cy.get('#email').type('test@example.com')
-    cy.get('#password').type('password')
+    cy.get('#email').type(Cypress.env('username'))
+    cy.get('#password').type(Cypress.env('password'))
     cy.get('button[type="submit"]').click()
-    cy.url().should('eq', 'http://localhost:5173/')
-    cy.contains('API Tokens').should('be.visible')
+    cy.url().should('eq', Cypress.config().baseUrl + '/')
+    cy.contains('Welcome').should('be.visible')
     cy.contains('Logout').should('be.visible')
   })
 
   it('should log out and redirect to the login page', () => {
     cy.visit('/login')
-    cy.get('#email').type('test@example.com')
-    cy.get('#password').type('password')
+    cy.get('#email').type(Cypress.env('username'))
+    cy.get('#password').type(Cypress.env('password'))
     cy.get('button[type="submit"]').click()
     cy.contains('Logout').click()
-    cy.url().should('eq', 'http://localhost:5173/login')
+    cy.url().should('eq', Cypress.config().baseUrl + '/login')
   })
 })
 
 describe('API Token Management', () => {
   beforeEach(() => {
     cy.visit('/login')
-    cy.get('#email').type('test@example.com')
-    cy.get('#password').type('password')
+    cy.get('#email').type(Cypress.env('username'))
+    cy.get('#password').type(Cypress.env('password'))
     cy.get('button[type="submit"]').click()
     cy.contains('API Tokens').click()
   })
