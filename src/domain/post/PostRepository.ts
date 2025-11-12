@@ -1,9 +1,9 @@
-import type { Post } from '@/domain/post/Post'
+import type { CreatePost, Post } from '@/domain/post/Post'
 
 export interface PostRepository {
   findAll(): Promise<Post[]>
   findById(id: number): Promise<Post | null>
-  create(post: Post): Promise<Post>
+  create(post: CreatePost): Promise<Post>
   update(post: Post): Promise<Post>
   delete(id: number): Promise<void>
   clear(): void

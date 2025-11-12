@@ -1,30 +1,24 @@
 import type { PostRepository } from '@/domain/post/PostRepository'
-import type { Post } from '@/domain/post/Post'
+import type { CreatePost, Post } from '@/domain/post/Post'
 import { PostService } from '@/infrastructure/api/services/PostService'
 import type { User } from '@/domain/auth/User'
+import { pid } from 'process'
 
 export class ApiPostRepository implements PostRepository {
   async findAll(): Promise<Post[]> {
     const items = await PostService.apiPostsGetCollection()
+    let itemId = 1;
     return items.map((item: any) => {
-      if (!item.owner || typeof item.owner.id === 'undefined') {
-        throw new Error('Invalid post data: owner or owner.id is missing')
+      if (!item.postId || typeof item.postId === 'undefined') {
+        throw new Error('Invalid post data: postId is missing')
       }
       return {
-        id: item.id!,
         postId: item.postId!,
-        hub: item.hub!,
-        client: item.client!,
-        postType: item.postType!,
+        hubId: item.hubId!,
+        clientId: item.clientId!,
         status: item.status!,
-        data: item.data || [],
-        metadata: item.metadata || [],
         createdAt: item.createdAt!,
         updatedAt: item.updatedAt!,
-        owner: {
-          ...item.owner,
-          id: item.owner.id
-        } as User,
         type: item.type!
       }
     })
@@ -33,24 +27,17 @@ export class ApiPostRepository implements PostRepository {
   async findById(id: number): Promise<Post | null> {
     try {
       const item = await PostService.apiPostsIdGet(id.toString())
-      if (!item.owner || typeof item.owner.id === 'undefined') {
+      if (!item.postId || typeof item.postId === 'undefined') {
         throw new Error('Invalid post data: owner or owner.id is missing')
       }
+      let itemId = 1;
       return {
-        id: item.id!,
         postId: item.postId!,
-        hub: item.hub!,
-        client: item.client!,
-        postType: item.postType!,
+        hubId: item.hubId!,
+        clientId: item.clientId!,
         status: item.status!,
-        data: item.data || [],
-        metadata: item.metadata || [],
         createdAt: item.createdAt!,
         updatedAt: item.updatedAt!,
-        owner: {
-          ...item.owner,
-          id: item.owner.id
-        } as User,
         type: item.type!
       }
     } catch {
@@ -58,33 +45,22 @@ export class ApiPostRepository implements PostRepository {
     }
   }
 
-  async create(post: Post): Promise<Post> {
-    const result = await PostService.apiPostsPost(post)
-    if (!result.owner || typeof result.owner.id === 'undefined') {
-      throw new Error('Invalid post data: owner or owner.id is missing')
+  async create(post: CreatePost): Promise<Post> {
+    const result = await PostService.apiPostsCreate(post)
+    if (!result.postId || typeof result.postId === 'undefined') {
+      throw new Error('Invalid post data: postId is missing')
     }
-    return {
-      id: result.id!,
-      postId: result.postId!,
-      hub: result.hub!,
-      client: result.client!,
-      postType: result.postType!,
-      status: result.status!,
-      data: result.data || [],
-      metadata: result.metadata || [],
-      createdAt: result.createdAt!,
-      updatedAt: result.updatedAt!,
-      owner: {
-        ...result.owner,
-        id: result.owner.id
-      } as User,
-      type: result.type!
-    }
+    return result
   }
 
   async update(post: Post): Promise<Post> {
     // API does not support update endpoint; fallback to create
-    return this.create(post)
+    return this.create({
+      client: post.clientId,
+      hub: post.hubId,
+      postType: post.type,
+      data: []
+    })
   }
 
   async delete(id: number): Promise<void> {

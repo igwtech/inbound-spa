@@ -3,7 +3,7 @@ import { config } from '@/config'
 import { InMemoryPostRepository } from '@/infrastructure/post/InMemoryPostRepository'
 import { ApiPostRepository } from '@/infrastructure/post/ApiPostRepository'
 import type { PostRepository } from '@/domain/post/PostRepository'
-import type { Post } from '@/domain/post/Post'
+import type { Post, CreatePost } from '@/domain/post/Post'
 
 export const usePostStore = defineStore('post', {
   state: () => ({
@@ -29,7 +29,7 @@ export const usePostStore = defineStore('post', {
         this.loading = false
       }
     },
-    async create(post: Post) {
+    async createPost(post: CreatePost) {
       this.loading = true
       try {
         const created = await this.repository.create(post)

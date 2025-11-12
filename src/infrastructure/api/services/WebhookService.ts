@@ -11,7 +11,7 @@ export class WebhookService {
   public static getWebhookCollection(): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/webhooks'
+      url: '/api/webhook'
     })
   }
 
@@ -27,7 +27,7 @@ export class WebhookService {
   }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/api/webhooks',
+      url: '/api/webhook',
       body: requestBody,
       mediaType: 'application/ld+json'
     })
@@ -41,7 +41,7 @@ export class WebhookService {
   public static getWebhookItem(id: string): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/webhooks/{id}',
+      url: '/api/webhook/{id}',
       path: {
         id: id
       }
@@ -63,7 +63,7 @@ export class WebhookService {
   }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'PUT',
-      url: '/api/webhooks/{id}',
+      url: '/api/webhook/{id}',
       path: {
         id: id
       },
@@ -80,7 +80,7 @@ export class WebhookService {
   public static deleteWebhookItem(id: string): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'DELETE',
-      url: '/api/webhooks/{id}',
+      url: '/api/webhook/{id}',
       path: {
         id: id
       }

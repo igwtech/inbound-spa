@@ -1,8 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
-import type { Post } from '../models/Post';
+import type { CreatePost, Post } from '@/domain/post/Post'
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -19,7 +18,7 @@ export class PostService {
     ): CancelablePromise<Array<Post>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/posts',
+            url: '/api/v1/posts',
             query: {
                 'page': page,
             },
@@ -32,13 +31,13 @@ export class PostService {
      * @returns Post Post resource created
      * @throws ApiError
      */
-    public static apiPostsPost(
-        requestBody: Post,
+    public static apiPostsCreate(
+        requestBody: CreatePost,
     ): CancelablePromise<Post> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/posts',
-            body: requestBody,
+            url: `/api/v1/post/${requestBody.hub}/${requestBody.client}/${requestBody.postType}`,
+            body: requestBody.data,
             mediaType: 'application/json',
             errors: {
                 400: `Invalid input`,

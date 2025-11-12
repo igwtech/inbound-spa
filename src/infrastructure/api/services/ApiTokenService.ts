@@ -11,7 +11,7 @@ export class ApiTokenService {
   public static getApiTokenCollection(): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'GET',
-      url: '/api/api_tokens'
+      url: '/api/tokens'
     })
   }
 
@@ -27,7 +27,7 @@ export class ApiTokenService {
   }): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'POST',
-      url: '/api/api_tokens',
+      url: '/api/tokens',
       body: requestBody,
       mediaType: 'application/ld+json'
     })
@@ -41,7 +41,7 @@ export class ApiTokenService {
   public static deleteApiTokenItem(id: string): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'DELETE',
-      url: '/api/api_tokens/{id}',
+      url: '/api/tokens/{id}',
       path: {
         id: id
       }

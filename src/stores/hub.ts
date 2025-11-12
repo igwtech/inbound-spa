@@ -13,7 +13,7 @@ export const useHubStore = defineStore('hub', {
     loading: false
   }),
   actions: {
-    async fetchAll() {
+    async fetchHubs() {
       this.loading = true
       try {
         this.hubs = await this.repository.findAll()

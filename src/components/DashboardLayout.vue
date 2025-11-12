@@ -23,6 +23,7 @@ function logout() {
                 <RouterLink to="/api-tokens" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">API Tokens
                 </RouterLink>
                 <RouterLink to="/posts" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Posts</RouterLink>
+
                 <RouterLink to="/clients-hubs" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Clients & Hubs
                 </RouterLink>
                 <RouterLink to="/webhooks" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Webhooks

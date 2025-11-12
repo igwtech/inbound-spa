@@ -13,7 +13,7 @@ export const useClientStore = defineStore('client', {
     loading: false
   }),
   actions: {
-    async fetchAll() {
+    async fetchClients() {
       this.loading = true
       try {
         this.clients = await this.repository.findAll()

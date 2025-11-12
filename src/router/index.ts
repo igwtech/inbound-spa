@@ -50,6 +50,14 @@ const router = createRouter({
       }
     },
     {
+      path: '/posts/create',
+      name: 'create-post',
+      component: () => import('../views/CreatePostView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/clients-hubs',
       name: 'clients-hubs',
       component: () => import('../views/ClientHubView.vue'),

@@ -5,7 +5,10 @@ import { ApiTokenService } from '@/infrastructure/api/services/ApiTokenService'
 export class ApiApiTokenRepository implements ApiTokenRepository {
   async findAll(): Promise<ApiToken[]> {
     const response = await ApiTokenService.getApiTokenCollection()
-    return response['hydra:member']!.map((item: any) => item as ApiToken)
+    if (Array.isArray(response)) {
+      return response.map((item: any) => item as ApiToken)
+    }
+    return []
   }
 
   async create(name: string): Promise<ApiToken> {
