@@ -23,12 +23,17 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-    },
-    {
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginView
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: () => import('../views/RegisterView.vue')
+        },
+        {
       path: '/api-tokens',
       name: 'api-tokens',
       component: ApiTokenView,
@@ -65,7 +70,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  const publicPages = ['/login']
+  const publicPages = ['/login', '/register']
   const authRequired = !publicPages.includes(to.path)
 
   if (authRequired && !authStore.isAuthenticated) {

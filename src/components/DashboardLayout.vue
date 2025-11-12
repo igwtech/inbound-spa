@@ -49,8 +49,4 @@ function logout() {
 .logout {
     vertical-align: bottom;
 }
-
-.wdlnds-logo {
-    filter: invert(1);
-}
 </style>
