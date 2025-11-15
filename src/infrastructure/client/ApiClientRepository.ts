@@ -4,7 +4,7 @@ import { ClientService } from '@/infrastructure/api/services/ClientService'
 
 export class ApiClientRepository implements ClientRepository {
   async findAll(): Promise<Client[]> {
-    const items = await ClientService.apiClientsGetCollection()
+    const items = await ClientService.apiV1ClientsGetCollection()
     return items.map(item => ({
       id: item.id!,
       clientId: item.clientId!,
@@ -16,7 +16,7 @@ export class ApiClientRepository implements ClientRepository {
 
   async findById(id: number): Promise<Client | null> {
     try {
-      const item = await ClientService.apiClientsIdGet(id.toString())
+      const item = await ClientService.apiV1ClientsIdGet(id.toString())
       return {
         id: item.id!,
         clientId: item.clientId!,

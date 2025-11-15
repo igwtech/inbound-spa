@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { User_jsonld } from './User_jsonld';
 export type ApiToken_jsonld = {
     readonly '@context'?: (string | Record<string, any>);
     readonly '@id'?: string;
@@ -14,7 +13,7 @@ export type ApiToken_jsonld = {
     lastUsedAt?: string | null;
     active?: boolean;
     createdAt?: string;
-    user?: User_jsonld;
+    user?: string;
     roles?: string | null;
     name?: string;
     description?: string | null;

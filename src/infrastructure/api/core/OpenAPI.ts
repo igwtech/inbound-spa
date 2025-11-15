@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-import { config } from '@/config';
+/* eslint-disable */
 import type { ApiRequestOptions } from './ApiRequestOptions';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
@@ -20,12 +20,13 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-    BASE: config.apiBaseUrl,
+    BASE: 'https://api-trilogy23.do.wdlnds.com',
     VERSION: '1.0.0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
-    TOKEN: async () => {
-        return localStorage.getItem('token') || '';
+    TOKEN: () => {
+        const token = localStorage.getItem('token');
+        return Promise.resolve(token || '');
     },
     USERNAME: undefined,
     PASSWORD: undefined,

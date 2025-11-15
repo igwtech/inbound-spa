@@ -4,7 +4,7 @@ import { HubService } from '@/infrastructure/api/services/HubService'
 
 export class ApiHubRepository implements HubRepository {
   async findAll(): Promise<Hub[]> {
-    const items = await HubService.apiHubsGetCollection()
+    const items = await HubService.apiV1HubsGetCollection()
     return items.map(item => ({
       id: item.id!,
       hubId: item.hubId!,
@@ -16,7 +16,7 @@ export class ApiHubRepository implements HubRepository {
 
   async findById(id: number): Promise<Hub | null> {
     try {
-      const item = await HubService.apiHubsIdGet(id.toString())
+      const item = await HubService.apiV1HubsIdGet(id.toString())
       return {
         id: item.id!,
         hubId: item.hubId!,

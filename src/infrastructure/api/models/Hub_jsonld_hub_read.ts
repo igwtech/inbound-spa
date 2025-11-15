@@ -4,9 +4,9 @@
 /* eslint-disable */
 import type { ClientHub_jsonld_hub_read } from './ClientHub_jsonld_hub_read';
 export type Hub_jsonld_hub_read = {
+    readonly '@context'?: (string | Record<string, any>);
     readonly '@id'?: string;
     readonly '@type'?: string;
-    readonly '@context'?: (string | Record<string, any>);
     readonly id?: number;
     hubId?: number;
     name?: string;

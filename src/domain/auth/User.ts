@@ -3,7 +3,7 @@ export interface User {
   email: string
   firstName: string
   lastName: string
-  role: string
+  roles: string[]
   createdAt: string
   active: boolean
 }

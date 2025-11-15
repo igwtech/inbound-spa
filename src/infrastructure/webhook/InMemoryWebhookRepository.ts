@@ -5,15 +5,7 @@ export class InMemoryWebhookRepository implements WebhookRepository {
   private webhooks: Webhook[] = [
     {
       id: 1,
-      user: {
-        id: 1,
-        email: 'test@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        role: 'admin',
-        createdAt: new Date().toISOString(),
-        active: true
-      },
+      user: 'test@example.com',
       uri: 'https://example.com/webhook',
       authentication: [],
       postTypes: [],

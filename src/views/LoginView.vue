@@ -27,6 +27,9 @@ async function handleLogin() {
             <div class="flex justify-center">
                 <img alt="Wdlnds logo" class="wdlnds-logo w-48 mb-6" src="@/assets/logo.svg" />
             </div>
+            <div v-if="errorMessage" class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+                {{ errorMessage }}
+            </div>
             <form @submit.prevent="handleLogin" class="space-y-6">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium">Email</label>

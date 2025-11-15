@@ -1,5 +1,6 @@
 export interface ApiToken {
-  id: number;
-  name: string;
-  token: string;
+  '@id'?: string
+  id?: number
+  name: string
+  token?: string
 }

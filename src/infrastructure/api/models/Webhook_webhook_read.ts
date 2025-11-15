@@ -1,13 +1,12 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
-import type { User } from './User';
-export type UserClient = {
+/* eslint-disable */
+export type Webhook_webhook_read = {
     readonly id?: number;
-    user?: User;
-    client?: string;
-    active?: boolean;
+    uri?: string;
+    authentication?: Array<string>;
+    postTypes?: Array<string>;
     createdAt?: string;
 };
 

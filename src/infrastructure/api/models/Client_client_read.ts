@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
+/* eslint-disable */
 import type { ClientHub_client_read } from './ClientHub_client_read';
 import type { UserClient_client_read } from './UserClient_client_read';
 export type Client_client_read = {

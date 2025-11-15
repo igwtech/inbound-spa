@@ -3,77 +3,75 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import ApiTokenView from '../views/ApiTokenView.vue'
 import { useAuthStore } from '@/stores/auth'
+import DashboardLayout from '@/components/DashboardLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-    },
+      component: DashboardLayout,
+      meta: { requiresAuth: true },
+      children: [
         {
-            path: '/login',
-            name: 'login',
-            component: LoginView
+          path: '',
+          name: 'home',
+          component: HomeView
         },
         {
-            path: '/register',
-            name: 'register',
-            component: () => import('../views/RegisterView.vue')
+          path: 'about',
+          name: 'about',
+          component: () => import('../views/AboutView.vue')
         },
         {
-      path: '/api-tokens',
-      name: 'api-tokens',
-      component: ApiTokenView,
-      meta: {
-        requiresAuth: true
-      }
+          path: 'api-tokens',
+          name: 'api-tokens',
+          component: ApiTokenView,
+          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+        },
+        {
+          path: 'posts',
+          name: 'posts',
+          component: () => import('../views/PostView.vue'),
+          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+        },
+        {
+          path: 'posts/create',
+          name: 'create-post',
+          component: () => import('../views/CreatePostView.vue'),
+          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+        },
+        {
+          path: 'hubs',
+          name: 'hubs',
+          component: () => import('../views/ClientHubView.vue'),
+          meta: { roles: ['ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+        },
+        {
+          path: 'clients',
+          name: 'clients',
+          component: () => import('../views/ClientHubView.vue'),
+          meta: { roles: ['ROLE_HUB', 'ROLE_ADMIN'] }
+        },
+        {
+          path: 'webhooks',
+          name: 'webhooks',
+          component: () => import('../views/WebhookView.vue'),
+          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+        }
+      ]
     },
     {
-      path: '/posts',
-      name: 'posts',
-      component: () => import('../views/PostView.vue'),
-      meta: {
-        requiresAuth: true
-      }
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
-      path: '/posts/create',
-      name: 'create-post',
-      component: () => import('../views/CreatePostView.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/clients-hubs',
-      name: 'clients-hubs',
-      component: () => import('../views/ClientHubView.vue'),
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/webhooks',
-      name: 'webhooks',
-      component: () => import('../views/WebhookView.vue'),
-      meta: {
-        requiresAuth: true
-      }
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
     }
-  ],
+  ]
 })
 
 router.beforeEach((to, from, next) => {
@@ -83,6 +81,14 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !authStore.isAuthenticated) {
     return next('/login')
+  }
+
+  if (to.meta.roles) {
+    const requiredRoles = to.meta.roles as string[]
+    const hasRole = authStore.roles.some((role) => requiredRoles.includes(role))
+    if (!hasRole) {
+      return next({ name: 'home' })
+    }
   }
 
   next()

@@ -1,45 +1,43 @@
 <template>
-    <DashboardLayout>
-        <div class="create-post-view">
-            <h1 class="text-3xl font-bold mb-6">Create a New Post</h1>
-            <form @submit.prevent="submitPost">
-                <div class="form-group">
-                    <label for="client">Client</label>
-                    <select id="client" v-model="selectedClient" required>
-                        <option disabled value="">Please select a client</option>
-                        <option v-for="client in clients" :key="client.id" :value="client.clientId">
-                            {{ client.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="hub">Hub</label>
-                    <select id="hub" v-model="selectedHub" required>
-                        <option disabled value="">Please select a hub</option>
-                        <option v-for="hub in hubs" :key="hub.id" :value="hub.hubId">
-                            {{ hub.name }}
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="post-type">Post Type</label>
-                    <select id="post-type" v-model="selectedPostType" required>
-                        <option disabled value="">Please select a post type</option>
-                        <option value="945">EDI X12 945</option>
-                        <option value="940">EDI X12 940</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="post-content">Post Content</label>
-                    <textarea id="post-content" v-model="postContent" rows="5" required></textarea>
-                </div>
-                <button type="submit" :disabled="isSubmitting">
-                    {{ isSubmitting ? 'Submitting...' : 'Create Post' }}
-                </button>
-                <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-            </form>
-        </div>
-    </DashboardLayout>
+    <div class="create-post-view">
+        <h1 class="text-3xl font-bold mb-6">Create a New Post</h1>
+        <form @submit.prevent="submitPost">
+            <div class="form-group">
+                <label for="client">Client</label>
+                <select id="client" v-model="selectedClient" required>
+                    <option disabled value="">Please select a client</option>
+                    <option v-for="client in clients" :key="client.id" :value="client.clientId">
+                        {{ client.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hub">Hub</label>
+                <select id="hub" v-model="selectedHub" required>
+                    <option disabled value="">Please select a hub</option>
+                    <option v-for="hub in hubs" :key="hub.id" :value="hub.hubId">
+                        {{ hub.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="post-type">Post Type</label>
+                <select id="post-type" v-model="selectedPostType" required>
+                    <option disabled value="">Please select a post type</option>
+                    <option value="945">EDI X12 945</option>
+                    <option value="940">EDI X12 940</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="post-content">Post Content</label>
+                <textarea id="post-content" v-model="postContent" rows="5" required></textarea>
+            </div>
+            <button type="submit" :disabled="isSubmitting">
+                {{ isSubmitting ? 'Submitting...' : 'Create Post' }}
+            </button>
+            <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +46,6 @@ import { useClientStore } from '@/stores/client'
 import { useHubStore } from '@/stores/hub'
 import { usePostStore } from '@/stores/post'
 import { storeToRefs } from 'pinia'
-import DashboardLayout from '@/components/DashboardLayout.vue'
 
 const clientStore = useClientStore()
 const hubStore = useHubStore()

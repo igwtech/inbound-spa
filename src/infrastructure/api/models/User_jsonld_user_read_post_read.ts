@@ -2,15 +2,15 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { User_jsonld } from './User_jsonld';
-export type UserClient_jsonld = {
+import type { Post_jsonld_user_read_post_read } from './Post_jsonld_user_read_post_read';
+export type User_jsonld_user_read_post_read = {
     readonly '@context'?: (string | Record<string, any>);
     readonly '@id'?: string;
     readonly '@type'?: string;
     readonly id?: number;
-    user?: User_jsonld;
-    client?: string;
-    active?: boolean;
-    createdAt?: string;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    posts?: Array<Post_jsonld_user_read_post_read>;
 };
 

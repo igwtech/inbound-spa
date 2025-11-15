@@ -2,4 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type User_client_read = Record<string, any>;
+export type Client_jsonld_client_write = {
+    clientId?: number;
+    name?: string;
+    active?: boolean;
+};
+

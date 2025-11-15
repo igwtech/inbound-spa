@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -10,6 +11,15 @@ function logout() {
     authStore.logout()
     router.push('/login')
 }
+
+const hasRole = (role: string) => authStore.roles.includes(role)
+
+const canViewPosts = computed(() => hasRole('ROLE_USER') || hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
+const canViewTokens = computed(() => hasRole('ROLE_USER') || hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
+const canViewWebhooks = computed(() => hasRole('ROLE_USER') || hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
+const canViewHubs = computed(() => hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
+const canViewClients = computed(() => hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
+
 </script>
 
 <template>
@@ -20,13 +30,18 @@ function logout() {
             </div>
             <nav class="flex flex-col space-y-8 text-center ">
                 <RouterLink to="/" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Dashboard</RouterLink>
-                <RouterLink to="/api-tokens" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">API Tokens
+                <RouterLink v-if="canViewTokens" to="/api-tokens"
+                    class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">API Tokens
                 </RouterLink>
-                <RouterLink to="/posts" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Posts</RouterLink>
-
-                <RouterLink to="/clients-hubs" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Clients & Hubs
+                <RouterLink v-if="canViewPosts" to="/posts" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">
+                    Posts</RouterLink>
+                <RouterLink v-if="canViewHubs" to="/hubs" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Hubs
                 </RouterLink>
-                <RouterLink to="/webhooks" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Webhooks
+                <RouterLink v-if="canViewClients" to="/clients"
+                    class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Clients
+                </RouterLink>
+                <RouterLink v-if="canViewWebhooks" to="/webhooks"
+                    class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">Webhooks
                 </RouterLink>
                 <RouterLink to="/about" class="menu_item px-4 py-4 rounded-lg hover:bg-gray-700">About</RouterLink>
             </nav>
@@ -36,7 +51,7 @@ function logout() {
             </div>
         </aside>
         <main class="flex-1 p-10 overflow-y-auto">
-            <slot></slot>
+            <RouterView />
         </main>
     </div>
 </template>

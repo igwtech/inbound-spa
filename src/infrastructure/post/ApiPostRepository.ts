@@ -6,39 +6,39 @@ import { pid } from 'process'
 
 export class ApiPostRepository implements PostRepository {
   async findAll(): Promise<Post[]> {
-    const items = await PostService.apiPostsGetCollection()
-    let itemId = 1;
+    const items = await PostService.apiPostsGet()
+    let itemId = 1
     return items.map((item: any) => {
       if (!item.postId || typeof item.postId === 'undefined') {
         throw new Error('Invalid post data: postId is missing')
       }
       return {
         postId: item.postId!,
-        hubId: item.hubId!,
-        clientId: item.clientId!,
+        hub: item.hub!,
+        client: item.client!,
         status: item.status!,
         createdAt: item.createdAt!,
         updatedAt: item.updatedAt!,
-        type: item.type!
+        postType: item.postType!
       }
     })
   }
 
-  async findById(id: number): Promise<Post | null> {
+  async findById(id: string): Promise<Post | null> {
     try {
-      const item = await PostService.apiPostsIdGet(id.toString())
+      const item = await PostService.apiPostGet(id.toString())
       if (!item.postId || typeof item.postId === 'undefined') {
         throw new Error('Invalid post data: owner or owner.id is missing')
       }
-      let itemId = 1;
+      let itemId = 1
       return {
         postId: item.postId!,
-        hubId: item.hubId!,
-        clientId: item.clientId!,
+        hub: item.hub!,
+        client: item.client!,
         status: item.status!,
         createdAt: item.createdAt!,
         updatedAt: item.updatedAt!,
-        type: item.type!
+        postType: item.postType!
       }
     } catch {
       return null
@@ -46,24 +46,32 @@ export class ApiPostRepository implements PostRepository {
   }
 
   async create(post: CreatePost): Promise<Post> {
-    const result = await PostService.apiPostsCreate(post)
+    const result = await PostService.postCreation(post)
     if (!result.postId || typeof result.postId === 'undefined') {
       throw new Error('Invalid post data: postId is missing')
     }
-    return result
+    return {
+      postId: result.postId!,
+      hub: result.hub!,
+      client: result.client!,
+      status: result.status!,
+      createdAt: result.createdAt!,
+      updatedAt: result.updatedAt!,
+      postType: result.postType!
+    }
   }
 
   async update(post: Post): Promise<Post> {
     // API does not support update endpoint; fallback to create
     return this.create({
-      client: post.clientId,
-      hub: post.hubId,
-      postType: post.type,
+      client: post.client,
+      hub: post.hub,
+      postType: post.postType,
       data: []
     })
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     // API does not support delete endpoint; no-op
   }
 

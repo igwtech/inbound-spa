@@ -2,12 +2,12 @@ import type { User } from '@/domain/auth/User'
 
 export interface Post {
   postId: string
-  hubId: string
-  clientId: string
+  hub: string
+  client: string
   status: string
   createdAt: string
   updatedAt: string
-  type: number
+  postType: number
 }
 
 export interface CreatePost {

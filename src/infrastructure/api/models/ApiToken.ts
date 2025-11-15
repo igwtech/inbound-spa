@@ -1,8 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
-import type { User } from './User';
+/* eslint-disable */
 export type ApiToken = {
     readonly id?: number;
     tokenId?: string;
@@ -11,7 +10,7 @@ export type ApiToken = {
     lastUsedAt?: string | null;
     active?: boolean;
     createdAt?: string;
-    user?: User;
+    user?: string;
     roles?: string | null;
     name?: string;
     description?: string | null;

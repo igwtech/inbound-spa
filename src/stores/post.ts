@@ -21,7 +21,7 @@ export const usePostStore = defineStore('post', {
         this.loading = false
       }
     },
-    async fetchById(id: number) {
+    async fetchById(id: string) {
       this.loading = true
       try {
         this.current = await this.repository.findById(id)
@@ -43,7 +43,7 @@ export const usePostStore = defineStore('post', {
       this.loading = true
       try {
         const updated = await this.repository.update(post)
-        const index = this.posts.findIndex((p) => p.id === updated.id)
+        const index = this.posts.findIndex((p) => p.postId === updated.postId)
         if (index !== -1) {
           this.posts.splice(index, 1, updated)
         }
@@ -52,11 +52,11 @@ export const usePostStore = defineStore('post', {
         this.loading = false
       }
     },
-    async delete(id: number) {
+    async delete(id: string) {
       this.loading = true
       try {
         await this.repository.delete(id)
-        this.posts = this.posts.filter((p) => p.id !== id)
+        this.posts = this.posts.filter((p) => p.postId !== id)
       } finally {
         this.loading = false
       }

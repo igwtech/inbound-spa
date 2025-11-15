@@ -1,0 +1,41 @@
+{
+  "uptimeData": {
+    "labels": ["January", "February", "March", "April", "May", "June", "July"],
+    "datasets": [
+      {
+        "label": "Uptime",
+        "backgroundColor": "#42b983",
+        "data": [99.5, 99.7, 99.6, 99.8, 99.9, 99.7, 99.8]
+      }
+    ]
+  },
+  "postsData": {
+    "labels": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "datasets": [
+      {
+        "label": "Processed",
+        "backgroundColor": "#42b983",
+        "data": [120, 150, 170, 160, 180, 190, 200]
+      },
+      {
+        "label": "Queued",
+        "backgroundColor": "#f87979",
+        "data": [20, 25, 30, 28, 35, 40, 45]
+      },
+      {
+        "label": "Rejected",
+        "backgroundColor": "#ffc107",
+        "data": [5, 3, 2, 4, 1, 6, 3]
+      }
+    ]
+  },
+  "webhooksData": {
+    "labels": ["Success", "Failure"],
+    "datasets": [
+      {
+        "backgroundColor": ["#42b983", "#f87979"],
+        "data": [95, 5]
+      }
+    ]
+  }
+}

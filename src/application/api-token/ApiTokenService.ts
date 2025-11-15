@@ -13,6 +13,6 @@ export class ApiTokenService {
   }
 
   async delete(id: number): Promise<void> {
-    return this.apiTokenRepository.delete(id);
+    return this.apiTokenRepository.delete(id)
   }
 }

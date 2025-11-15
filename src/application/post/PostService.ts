@@ -1,4 +1,4 @@
-import type { Post } from '@/domain/post/Post'
+import type { CreatePost, Post } from '@/domain/post/Post'
 import type { PostRepository } from '@/domain/post/PostRepository'
 
 export class PostService {
@@ -8,11 +8,11 @@ export class PostService {
     return this.postRepository.findAll()
   }
 
-  async findById(id: number): Promise<Post | null> {
+  async findById(id: string): Promise<Post | null> {
     return this.postRepository.findById(id)
   }
 
-  async create(post: Post): Promise<Post> {
+  async create(post: CreatePost): Promise<Post> {
     return this.postRepository.create(post)
   }
 
@@ -20,7 +20,7 @@ export class PostService {
     return this.postRepository.update(post)
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     return this.postRepository.delete(id)
   }
 }
