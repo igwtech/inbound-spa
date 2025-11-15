@@ -9,7 +9,7 @@ export class ApiAuthRepository implements AuthRepository {
     const response = await LoginCheckService.loginCheckPost({
       email,
       password
-    })
+    }) as any
 
     if (response && response.token && response.user) {
       return {
