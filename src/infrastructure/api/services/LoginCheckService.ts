@@ -2,9 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { User } from '@/domain/auth/User';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import type { LoginResponse } from '@/domain/auth/LoginResponse';
 export class LoginCheckService {
     /**
      * Creates a user token.
@@ -18,9 +20,7 @@ export class LoginCheckService {
             email: string;
             password: string;
         },
-    ): CancelablePromise<{
-        readonly token: string;
-    }> {
+    ): CancelablePromise<LoginResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/login',

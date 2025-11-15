@@ -11,7 +11,7 @@ export class InMemoryAuthRepository implements AuthRepository {
           email: email,
           firstName: 'John',
           lastName: 'Doe',
-          roles: ['ROLE_ADMIN'],
+          role: ['ROLE_ADMIN'],
           createdAt: new Date().toISOString(),
           active: true
         }

@@ -36,21 +36,15 @@ const router = createRouter({
           meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
         },
         {
-          path: 'posts/create',
-          name: 'create-post',
-          component: () => import('../views/CreatePostView.vue'),
-          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
-        },
-        {
           path: 'hubs',
           name: 'hubs',
-          component: () => import('../views/ClientHubView.vue'),
+          component: () => import('../views/HubView.vue'),
           meta: { roles: ['ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
         },
         {
           path: 'clients',
           name: 'clients',
-          component: () => import('../views/ClientHubView.vue'),
+          component: () => import('../views/ClientView.vue'),
           meta: { roles: ['ROLE_HUB', 'ROLE_ADMIN'] }
         },
         {
@@ -85,7 +79,8 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.roles) {
     const requiredRoles = to.meta.roles as string[]
-    const hasRole = authStore.roles.some((role) => requiredRoles.includes(role))
+    const userRoles = (authStore.roles as unknown as string[]) || []
+    const hasRole = userRoles.some((role) => requiredRoles.includes(role))
     if (!hasRole) {
       return next({ name: 'home' })
     }
