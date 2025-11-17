@@ -12,7 +12,7 @@ function logout() {
     router.push('/login')
 }
 
-const hasRole = (role: string) => authStore.roles.includes(role)
+const hasRole = (r: string) => authStore.roles?.includes(r)
 
 const canViewPosts = computed(() => hasRole('ROLE_USER') || hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))
 const canViewTokens = computed(() => hasRole('ROLE_USER') || hasRole('ROLE_CLIENT') || hasRole('ROLE_HUB') || hasRole('ROLE_ADMIN'))

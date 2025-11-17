@@ -4,6 +4,7 @@ import type { Webhook } from '@/domain/webhook/Webhook'
 import { useWebhookStore } from '@/stores/webhook'
 import { WebhookService } from '@/application/webhook/WebhookService'
 import { postTypes } from '@/data/postTypes'
+import { useAuthStore } from '@/stores/auth'
 
 const webhooks = ref<Webhook[]>([])
 const webhookStore = useWebhookStore()
@@ -15,7 +16,7 @@ const errorMessage = ref<string | null>(null)
 const showPostTypesDropdown = ref(false)
 
 const webhookService = new WebhookService(webhookStore.repository)
-
+const authStore = useAuthStore();
 const availablePostTypes = computed(() => {
     return postTypes.filter(pt => !newWebhookPostTypes.value.includes(pt.value))
 })
@@ -52,7 +53,7 @@ async function createWebhook() {
     try {
         const newWebhook: Partial<Webhook> = {
             uri: newWebhookUrl.value,
-            user: 'current_user', // Placeholder
+            user: authStore.user?.email,
             authentication: [newWebhookAuth.value],
             postTypes: newWebhookPostTypes.value,
         };

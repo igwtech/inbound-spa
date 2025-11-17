@@ -39,13 +39,13 @@ const router = createRouter({
           path: 'hubs',
           name: 'hubs',
           component: () => import('../views/HubView.vue'),
-          meta: { roles: ['ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
+          meta: { roles: ['ROLE_USER', 'ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
         },
         {
           path: 'clients',
           name: 'clients',
           component: () => import('../views/ClientView.vue'),
-          meta: { roles: ['ROLE_HUB', 'ROLE_ADMIN'] }
+          meta: { roles: ['ROLE_USER','ROLE_CLIENT', 'ROLE_HUB', 'ROLE_ADMIN'] }
         },
         {
           path: 'webhooks',
@@ -80,7 +80,8 @@ router.beforeEach((to, from, next) => {
   if (to.meta.roles) {
     const requiredRoles = to.meta.roles as string[]
     const userRoles = (authStore.roles as unknown as string[]) || []
-    const hasRole = userRoles.some((role) => requiredRoles.includes(role))
+    debugger;
+    const hasRole = userRoles?.some((role) => requiredRoles.includes(role))
     if (!hasRole) {
       return next({ name: 'home' })
     }
